@@ -50,7 +50,7 @@ void adicionarAVL(ArvoreAVL *arvore, int valor)
         }
     }
 
-    printf("Adicionando %d\n", valor);
+    // printf("Adicionando %d\n", valor);
     NoAVL *novo = malloc(sizeof(NoAVL));
     novo->valor = valor;
     novo->pai = no;
@@ -114,12 +114,12 @@ void balanceamentoAVL(ArvoreAVL *arvore, NoAVL *no)
             // rotação para a direita
             if (fb(no->esquerda) > 0)
             {
-                printf("RSD(%d)\n", no->valor);
+                // printf("RSD(%d)\n", no->valor);
                 rsd(arvore, no); // rotação simples a direita, pois o FB do filho tem sinal igual
             }
             else
             {
-                printf("RDD(%d)\n", no->valor);
+                // printf("RDD(%d)\n", no->valor);
                 rdd(arvore, no); // rotação dupla a direita, pois o FB do filho tem sinal diferente
             }
         }
@@ -128,12 +128,12 @@ void balanceamentoAVL(ArvoreAVL *arvore, NoAVL *no)
             // rotação para a esquerda
             if (fb(no->direita) < 0)
             {
-                printf("RSE(%d)\n", no->valor);
+                // printf("RSE(%d)\n", no->valor);
                 rse(arvore, no); // rotação simples a esquerda, pois o FB do filho tem sinal igual
             }
             else
             {
-                printf("RDE(%d)\n", no->valor);
+                // printf("RDE(%d)\n", no->valor);
                 rde(arvore, no); // rotação dupla a esquerda, pois o FB do filho tem sinal diferente
             }
         }

@@ -104,7 +104,6 @@ NoRN *localizarRN(ArvoreRN *arvore, int valor)
     return NULL;
 }
 
-
 void balancearRN(ArvoreRN *arvore, NoRN *no)
 {
     while (no->pai->cor == Vermelho)

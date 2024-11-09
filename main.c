@@ -1,56 +1,92 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "ArvoreAVL.h"
 #include "ArvoreRN.h"
 #include "ArvoreB.h"
-#include "ArvoreAVL.h"
 
-void visitar(int valor)
-{
-    printf("%d ", valor);
-}
+#define NUM_CONJUNTOS 10
+#define MAX_CHAVES 10000
 
 int main()
 {
-    ArvoreRN *a = criarRN();
+    int numeros[NUM_CONJUNTOS][MAX_CHAVES];
 
-    adicionarRN(a, 7);
-    adicionarRN(a, 6);
-    adicionarRN(a, 5);
-    adicionarRN(a, 4);
-    adicionarRN(a, 3);
-    adicionarRN(a, 2);
-    adicionarRN(a, 1);
+    // semente para numeros aleatórios
+    srand(time(0));
 
-    printf("In-order: ");
-    percorrerProfundidadeInOrder(a, a->raiz, visitar);
-    printf("\n");
+    for (int i = 0; i < NUM_CONJUNTOS; i++)
+        for (int j = 0; j < MAX_CHAVES; j++)
+            numeros[i][j] = (rand() % 10000) + 1;  // gera um numero aleatorio entre 1 e 10000
 
-    ArvoreB *arvore = criaArvoreB(1);
+    ArvoreAVL *arvoreAVL = criarAVL();
 
-    // int contador = 0;
+    // adição - AVL
+    for (int i = 0; i < NUM_CONJUNTOS; i++)
+    {
+        int qtdOperacoes = 0;
 
-    adicionaChave(arvore, 12);
-    adicionaChave(arvore, 3);
-    adicionaChave(arvore, 5);
-    adicionaChave(arvore, 7);
-    adicionaChave(arvore, 15);
-    adicionaChave(arvore, 99);
-    adicionaChave(arvore, 1);
+        for (int j = 0; j < MAX_CHAVES; j++)
+            adicionarAVL(arvoreAVL, numeros[i][j], &qtdOperacoes);
+        
+        printf("AVL #%d - %d\n", i, qtdOperacoes);
+    }
 
-    percorreArvoreB(arvore->raiz);
+    ArvoreB *arvoreB1 = criaArvoreB(1);
 
-    // printf("\nNúmero de operações: %d\n", contador);
+    // adição - B (ordem 1)
+    for (int i = 0; i < NUM_CONJUNTOS; i++)
+    {
+        int qtdOperacoes = 0;
 
-    ArvoreAVL *avl = criarAVL();
+        for (int j = 0; j < MAX_CHAVES; j++)
+            // TODO: contar operações
+            adicionaChaveB(arvoreB1, numeros[i][j]);
+        
+        printf("B1 #%d - %d\n", i, qtdOperacoes);
+    }
 
-    adicionarAVL(avl, 1);
-    adicionarAVL(avl, 2);
-    adicionarAVL(avl, 3);
-    adicionarAVL(avl, 7);
-    adicionarAVL(avl, 6);
-    adicionarAVL(avl, 5);
-    adicionarAVL(avl, 4);
+    ArvoreB *arvoreB5 = criaArvoreB(5);
 
-    printf("In-order: ");
-    percorrerAVL(avl->raiz, visitar);
-    printf("\n");
+    // adição - B (ordem 5)
+    for (int i = 0; i < NUM_CONJUNTOS; i++)
+    {
+        int qtdOperacoes = 0;
+
+        for (int j = 0; j < MAX_CHAVES; j++)
+            // TODO: contar operações
+            adicionaChaveB(arvoreB5, numeros[i][j]);
+        
+        printf("B5 #%d - %d\n", i, qtdOperacoes);
+    }
+
+    ArvoreB *arvoreB10 = criaArvoreB(10);
+
+    // adição - B (ordem 10)
+    for (int i = 0; i < NUM_CONJUNTOS; i++)
+    {
+        int qtdOperacoes = 0;
+
+        for (int j = 0; j < MAX_CHAVES; j++)
+            // TODO: contar operações
+            adicionaChaveB(arvoreB10, numeros[i][j]);
+        
+        printf("B10 #%d - %d\n", i, qtdOperacoes);
+    }
+
+    ArvoreRN *arvoreRN = criarRN();
+
+    // adição - RN
+    for (int i = 0; i < NUM_CONJUNTOS; i++)
+    {
+        int qtdOperacoes = 0;
+
+        for (int j = 0; j < MAX_CHAVES; j++)
+            // TODO: contar operações
+            adicionarRN(arvoreRN, numeros[i][j]);
+        
+        printf("RN #%d - %d\n", i, qtdOperacoes);
+    }
+
+    // TODO: remoção das árvores: AVL, B e RN
 }

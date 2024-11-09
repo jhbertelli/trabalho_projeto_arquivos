@@ -12,14 +12,14 @@ typedef struct
     struct noAVL *raiz;
 } ArvoreAVL;
 
-extern void balanceamentoAVL(ArvoreAVL *, NoAVL *);
+extern void balanceamentoAVL(ArvoreAVL *, NoAVL *, int* pQtdOperacoes);
 extern int alturaAVL(NoAVL *);
-extern int fb(NoAVL *);
-extern NoAVL *rsd(ArvoreAVL *, NoAVL *);
-extern NoAVL *rse(ArvoreAVL *, NoAVL *);
-extern NoAVL *rdd(ArvoreAVL *, NoAVL *);
-extern NoAVL *rde(ArvoreAVL *, NoAVL *);
-extern void adicionarAVL(ArvoreAVL *arvore, int valor);
+extern int fb(NoAVL *, int* pQtdOperacoes);
+extern NoAVL *rsd(ArvoreAVL *, NoAVL *, int* pQtdOperacoes);
+extern NoAVL *rse(ArvoreAVL *, NoAVL *, int* pQtdOperacoes);
+extern NoAVL *rdd(ArvoreAVL *, NoAVL *, int* pQtdOperacoes);
+extern NoAVL *rde(ArvoreAVL *, NoAVL *, int* pQtdOperacoes);
+extern void adicionarAVL(ArvoreAVL *arvore, int valor, int* pQtdOperacoes);
 extern int vaziaAVL(ArvoreAVL *arvore);
 extern ArvoreAVL *criarAVL();
 

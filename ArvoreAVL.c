@@ -2,6 +2,11 @@
 #include <stdio.h>
 #include "ArvoreAVL.h"
 
+void incrementarOperacoes(int* qtd)
+{
+    (*qtd)++;
+}
+
 int max(int a, int b)
 {
     return a > b ? a : b;
@@ -20,8 +25,9 @@ int vaziaAVL(ArvoreAVL *arvore)
     return arvore->raiz == NULL;
 }
 
-void adicionarAVL(ArvoreAVL *arvore, int valor)
+void adicionarAVL(ArvoreAVL *arvore, int valor, int* pQtdOperacoes)
 {
+    incrementarOperacoes(pQtdOperacoes);
     NoAVL *no = arvore->raiz;
 
     while (no != NULL)
@@ -73,7 +79,7 @@ void adicionarAVL(ArvoreAVL *arvore, int valor)
             no->esquerda = novo;
         }
 
-        balanceamentoAVL(arvore, no);
+        balanceamentoAVL(arvore, no, pQtdOperacoes);
     }
 }
 
@@ -102,39 +108,40 @@ void percorrerAVL(NoAVL *no, void (*callback)(int))
     }
 }
 
-void balanceamentoAVL(ArvoreAVL *arvore, NoAVL *no)
+void balanceamentoAVL(ArvoreAVL *arvore, NoAVL *no, int* pQtdOperacoes)
 {
+    incrementarOperacoes(pQtdOperacoes);
     while (no != NULL)
     {
         no->altura = max(alturaAVL(no->esquerda), alturaAVL(no->direita)) + 1;
-        int fator = fb(no);
+        int fator = fb(no, pQtdOperacoes);
 
         if (fator > 1)
         { // árvore mais pesada para esquerda
             // rotação para a direita
-            if (fb(no->esquerda) > 0)
+            if (fb(no->esquerda, pQtdOperacoes) > 0)
             {
                 // printf("RSD(%d)\n", no->valor);
-                rsd(arvore, no); // rotação simples a direita, pois o FB do filho tem sinal igual
+                rsd(arvore, no, pQtdOperacoes); // rotação simples a direita, pois o FB do filho tem sinal igual
             }
             else
             {
                 // printf("RDD(%d)\n", no->valor);
-                rdd(arvore, no); // rotação dupla a direita, pois o FB do filho tem sinal diferente
+                rdd(arvore, no, pQtdOperacoes); // rotação dupla a direita, pois o FB do filho tem sinal diferente
             }
         }
         else if (fator < -1)
         { // árvore mais pesada para a direita
             // rotação para a esquerda
-            if (fb(no->direita) < 0)
+            if (fb(no->direita, pQtdOperacoes) < 0)
             {
                 // printf("RSE(%d)\n", no->valor);
-                rse(arvore, no); // rotação simples a esquerda, pois o FB do filho tem sinal igual
+                rse(arvore, no, pQtdOperacoes); // rotação simples a esquerda, pois o FB do filho tem sinal igual
             }
             else
             {
                 // printf("RDE(%d)\n", no->valor);
-                rde(arvore, no); // rotação dupla a esquerda, pois o FB do filho tem sinal diferente
+                rde(arvore, no, pQtdOperacoes); // rotação dupla a esquerda, pois o FB do filho tem sinal diferente
             }
         }
 
@@ -147,8 +154,10 @@ int alturaAVL(NoAVL *no)
     return no != NULL ? no->altura : 0;
 }
 
-int fb(NoAVL *no)
+int fb(NoAVL *no, int* pQtdOperacoes)
 {
+    incrementarOperacoes(pQtdOperacoes);
+
     int esquerda = 0, direita = 0;
 
     if (no->esquerda != NULL)
@@ -164,8 +173,9 @@ int fb(NoAVL *no)
     return esquerda - direita;
 }
 
-NoAVL *rse(ArvoreAVL *arvore, NoAVL *no)
+NoAVL *rse(ArvoreAVL *arvore, NoAVL *no, int* pQtdOperacoes)
 {
+    incrementarOperacoes(pQtdOperacoes);
     NoAVL *pai = no->pai;
     NoAVL *direita = no->direita;
 
@@ -202,8 +212,9 @@ NoAVL *rse(ArvoreAVL *arvore, NoAVL *no)
     return direita;
 }
 
-NoAVL *rsd(ArvoreAVL *arvore, NoAVL *no)
+NoAVL *rsd(ArvoreAVL *arvore, NoAVL *no, int* pQtdOperacoes)
 {
+    incrementarOperacoes(pQtdOperacoes);
     NoAVL *pai = no->pai;
     NoAVL *esquerda = no->esquerda;
 
@@ -240,14 +251,14 @@ NoAVL *rsd(ArvoreAVL *arvore, NoAVL *no)
     return esquerda;
 }
 
-NoAVL *rde(ArvoreAVL *arvore, NoAVL *no)
+NoAVL *rde(ArvoreAVL *arvore, NoAVL *no, int* pQtdOperacoes)
 {
-    no->direita = rsd(arvore, no->direita);
-    return rse(arvore, no);
+    no->direita = rsd(arvore, no->direita, pQtdOperacoes);
+    return rse(arvore, no, pQtdOperacoes);
 }
 
-NoAVL *rdd(ArvoreAVL *arvore, NoAVL *no)
+NoAVL *rdd(ArvoreAVL *arvore, NoAVL *no, int* pQtdOperacoes)
 {
-    no->esquerda = rse(arvore, no->esquerda);
-    return rsd(arvore, no);
+    no->esquerda = rse(arvore, no->esquerda, pQtdOperacoes);
+    return rsd(arvore, no, pQtdOperacoes);
 }

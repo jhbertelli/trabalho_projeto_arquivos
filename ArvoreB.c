@@ -189,7 +189,7 @@ void adicionaChaveRecursivo(ArvoreB *arvore, NoB *no, NoB *novo, int chave)
     }
 }
 
-void adicionaChave(ArvoreB *arvore, int chave)
+void adicionaChaveB(ArvoreB *arvore, int chave)
 {
     NoB *no = localizaNoB(arvore, chave);
 

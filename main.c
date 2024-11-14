@@ -29,7 +29,18 @@ int main()
         for (int j = 0; j < MAX_CHAVES; j++)
             adicionarAVL(arvoreAVL, numeros[i][j], &qtdOperacoes);
         
-        printf("AVL #%d - %d\n", i, qtdOperacoes);
+        printf("Adição AVL #%d - %d\n", i + 1, qtdOperacoes);
+    }
+
+    // remoção - AVL
+    for (int i = 0; i < NUM_CONJUNTOS; i++)
+    {
+        int qtdOperacoes = 0;
+
+        for (int j = 0; j < MAX_CHAVES; j++)
+            removerAVL(arvoreAVL, numeros[i][j], &qtdOperacoes);
+        
+        printf("Remoção AVL #%d - %d\n", i + 1, qtdOperacoes);
     }
 
     ArvoreB *arvoreB1 = criaArvoreB(1);
@@ -43,7 +54,7 @@ int main()
             // TODO: contar operações
             adicionaChaveB(arvoreB1, numeros[i][j]);
         
-        printf("B1 #%d - %d\n", i, qtdOperacoes);
+        printf("Adição B1 #%d - %d\n", i + 1, qtdOperacoes);
     }
 
     ArvoreB *arvoreB5 = criaArvoreB(5);
@@ -57,7 +68,7 @@ int main()
             // TODO: contar operações
             adicionaChaveB(arvoreB5, numeros[i][j]);
         
-        printf("B5 #%d - %d\n", i, qtdOperacoes);
+        printf("Adição B5 #%d - %d\n", i + 1, qtdOperacoes);
     }
 
     ArvoreB *arvoreB10 = criaArvoreB(10);
@@ -71,7 +82,7 @@ int main()
             // TODO: contar operações
             adicionaChaveB(arvoreB10, numeros[i][j]);
         
-        printf("B10 #%d - %d\n", i, qtdOperacoes);
+        printf("Adição B10 #%d - %d\n", i + 1, qtdOperacoes);
     }
 
     ArvoreRN *arvoreRN = criarRN();
@@ -85,8 +96,8 @@ int main()
             // TODO: contar operações
             adicionarRN(arvoreRN, numeros[i][j]);
         
-        printf("RN #%d - %d\n", i, qtdOperacoes);
+        printf("Adição RN #%d - %d\n", i + 1, qtdOperacoes);
     }
 
-    // TODO: remoção das árvores: AVL, B e RN
+    // TODO: remoção das árvores: B e RN
 }

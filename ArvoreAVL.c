@@ -83,7 +83,7 @@ void adicionarAVL(ArvoreAVL *arvore, int valor, int* pQtdOperacoes)
     }
 }
 
-NoAVL *localizarAVL(NoAVL *no, int valor)
+NoAVL *localizarAVL(NoAVL *no, int valor, int *pQtdOperacoes)
 {
     while (no != NULL)
     {
@@ -261,4 +261,66 @@ NoAVL *rdd(ArvoreAVL *arvore, NoAVL *no, int* pQtdOperacoes)
 {
     no->esquerda = rse(arvore, no->esquerda, pQtdOperacoes);
     return rsd(arvore, no, pQtdOperacoes);
+}
+
+void removerAVL(ArvoreAVL *arvore, int valor, int* pQtdOperacoes)
+{
+    incrementarOperacoes(pQtdOperacoes);
+    NoAVL *no = localizarAVL(arvore->raiz, valor, pQtdOperacoes);
+    
+    if (no == NULL) return;
+
+    incrementarOperacoes(pQtdOperacoes);
+    NoAVL *pai = no->pai;
+
+    // não possui filhos
+    if (no->esquerda == NULL && no->direita == NULL)
+    {
+        if (pai == NULL)
+            arvore->raiz = NULL;
+        else if (pai->esquerda == no)
+            pai->esquerda = NULL;
+        else if (pai->direita == no)
+            pai->direita = NULL;
+    }
+    // possui nó na esquerda e direita
+    else if (no->esquerda != NULL && no->direita != NULL)
+    {
+        // procura a folha para adicionar a esquerda lá e balancear depois
+        NoAVL *folha = no->direita;
+
+        while (folha->esquerda != NULL)
+            folha = folha->esquerda;
+        
+        folha->esquerda = no->esquerda;
+        folha->esquerda->pai = folha;
+
+        if (pai == NULL)
+        {
+            arvore->raiz = no->direita;
+            arvore->raiz->pai = NULL;
+        }
+        else if (pai->direita == no)
+            pai->direita = no->direita;
+        else
+            pai->esquerda = no->direita;
+
+        no->direita->pai = pai;
+    }
+    // possui nó apenas na esquerda ou apenas na direita
+    else
+    {
+        NoAVL * filho = (no->esquerda != NULL) ? no->esquerda : no->direita;
+
+        if (pai == NULL)
+            arvore->raiz = filho;
+        else if (no == pai->esquerda)
+            pai->esquerda = filho;
+        else
+            pai->direita = filho;
+
+        filho->pai = pai;
+    }
+
+    balanceamentoAVL(arvore, (pai == NULL) ? arvore->raiz : pai, pQtdOperacoes);
 }

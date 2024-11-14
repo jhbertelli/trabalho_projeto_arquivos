@@ -24,3 +24,4 @@ extern int vaziaAVL(ArvoreAVL *arvore);
 extern ArvoreAVL *criarAVL();
 
 extern void percorrerAVL(NoAVL *no, void (*callback)(int));
+extern void removerAVL(ArvoreAVL *arvore, int valor, int* pQtdOperacoes);

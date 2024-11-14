@@ -8,7 +8,7 @@ Linux:
 gcc main.c ArvoreRN.c ArvoreB.c ArvoreAVL.c && ./a.out 
 ```
 
-Windows:
+Windows (CMD):
 
 ```cmd
 gcc main.c ArvoreRN.c ArvoreB.c ArvoreAVL.c && main.exe

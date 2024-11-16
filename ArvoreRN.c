@@ -3,6 +3,11 @@
 
 #include "ArvoreRN.h"
 
+void incrementarOperacoesRN(int* qtd)
+{
+    (*qtd)++;
+}
+
 ArvoreRN *criarRN()
 {
     ArvoreRN *arvore = malloc(sizeof(ArvoreRN));
@@ -32,8 +37,10 @@ NoRN *criarNoRN(ArvoreRN *arvore, NoRN *pai, int valor)
     return no;
 }
 
-NoRN *adicionarNoRN(ArvoreRN *arvore, NoRN *no, int valor)
+NoRN *adicionarNoRN(ArvoreRN *arvore, NoRN *no, int valor, int* pQtdOperacoes)
 {
+    incrementarOperacoesRN(pQtdOperacoes);
+
     if (valor > no->valor)
     {
         if (no->direita == arvore->nulo)
@@ -45,7 +52,7 @@ NoRN *adicionarNoRN(ArvoreRN *arvore, NoRN *no, int valor)
         }
         else
         {
-            return adicionarNoRN(arvore, no->direita, valor);
+            return adicionarNoRN(arvore, no->direita, valor, pQtdOperacoes);
         }
     }
     else
@@ -59,12 +66,12 @@ NoRN *adicionarNoRN(ArvoreRN *arvore, NoRN *no, int valor)
         }
         else
         {
-            return adicionarNoRN(arvore, no->esquerda, valor);
+            return adicionarNoRN(arvore, no->esquerda, valor, pQtdOperacoes);
         }
     }
 }
 
-NoRN *adicionarRN(ArvoreRN *arvore, int valor)
+NoRN *adicionarRN(ArvoreRN *arvore, int valor, int* pQtdOperacoes)
 {
     if (vaziaRN(arvore))
     {
@@ -75,8 +82,8 @@ NoRN *adicionarRN(ArvoreRN *arvore, int valor)
     }
     else
     {
-        NoRN *no = adicionarNoRN(arvore, arvore->raiz, valor);
-        balancearRN(arvore, no);
+        NoRN *no = adicionarNoRN(arvore, arvore->raiz, valor, pQtdOperacoes);
+        balancearRN(arvore, no, pQtdOperacoes);
 
         return no;
     }
@@ -104,10 +111,12 @@ NoRN *localizarRN(ArvoreRN *arvore, int valor)
     return NULL;
 }
 
-void balancearRN(ArvoreRN *arvore, NoRN *no)
+void balancearRN(ArvoreRN *arvore, NoRN *no, int* pQtdOperacoes)
 {
     while (no->pai->cor == Vermelho)
     {
+        incrementarOperacoesRN(pQtdOperacoes);
+
         if (no->pai == no->pai->pai->esquerda)
         {
             NoRN *tio = no->pai->pai->direita;
@@ -125,13 +134,13 @@ void balancearRN(ArvoreRN *arvore, NoRN *no)
                 if (no == no->pai->direita)
                 {
                     no = no->pai;                   // Caso 2
-                    rotacionarEsquerda(arvore, no); // Caso 2
+                    rotacionarEsquerda(arvore, no, pQtdOperacoes); // Caso 2
                 }
                 else
                 {
                     no->pai->cor = Preto;
                     no->pai->pai->cor = Vermelho;            // Caso 3
-                    rotacionarDireita(arvore, no->pai->pai); // Caso 3
+                    rotacionarDireita(arvore, no->pai->pai, pQtdOperacoes); // Caso 3
                 }
             }
         }
@@ -152,13 +161,13 @@ void balancearRN(ArvoreRN *arvore, NoRN *no)
                 if (no == no->pai->esquerda)
                 {
                     no = no->pai;                  // Caso 2
-                    rotacionarDireita(arvore, no); // Caso 2
+                    rotacionarDireita(arvore, no, pQtdOperacoes); // Caso 2
                 }
                 else
                 {
                     no->pai->cor = Preto;
                     no->pai->pai->cor = Vermelho;             // Caso 3
-                    rotacionarEsquerda(arvore, no->pai->pai); // Caso 3
+                    rotacionarEsquerda(arvore, no->pai->pai, pQtdOperacoes); // Caso 3
                 }
             }
         }
@@ -166,8 +175,10 @@ void balancearRN(ArvoreRN *arvore, NoRN *no)
     arvore->raiz->cor = Preto; // Conserta possível quebra regra 2
 }
 
-void rotacionarEsquerda(ArvoreRN *arvore, NoRN *no)
+void rotacionarEsquerda(ArvoreRN *arvore, NoRN *no, int* pQtdOperacoes)
 {
+    incrementarOperacoesRN(pQtdOperacoes);
+
     NoRN *direita = no->direita;
     no->direita = direita->esquerda;
 
@@ -195,8 +206,10 @@ void rotacionarEsquerda(ArvoreRN *arvore, NoRN *no)
     no->pai = direita;
 }
 
-void rotacionarDireita(ArvoreRN *arvore, NoRN *no)
+void rotacionarDireita(ArvoreRN *arvore, NoRN *no, int* pQtdOperacoes)
 {
+    incrementarOperacoesRN(pQtdOperacoes);
+
     NoRN *esquerda = no->esquerda;
     no->esquerda = esquerda->direita;
 

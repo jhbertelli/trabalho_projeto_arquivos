@@ -12,14 +12,14 @@ typedef struct
     int ordem;
 } ArvoreB;
 
-ArvoreB *criaArvoreB(int);
-NoB *criaNoB(ArvoreB *);
-void percorreArvoreB(NoB *);
-int pesquisaBinariaB(NoB *no, int chave, int* pQtdOperacoes);
-int localizaChave(ArvoreB *arvore, int chave, int* pQtdOperacoes);
-NoB *localizaNoB(ArvoreB *arvore, int chave, int* pQtdOperacoes);
-void adicionaChaveNo(NoB *no, NoB *novo, int chave, int* pQtdOperacoes);
-int transbordo(ArvoreB *arvore, NoB *no, int* pQtdOperacoes);
-NoB *divideNo(ArvoreB *arvore, NoB *no, int* pQtdOperacoes);
-void adicionaChaveRecursivo(ArvoreB *arvore, NoB *no, NoB *novo, int chave, int* pQtdOperacoes);
-void adicionaChaveB(ArvoreB *arvore, int chave, int* pQtdOperacoes);
+extern ArvoreB *criaArvoreB(int);
+extern NoB *criaNoB(ArvoreB *);
+extern void percorreArvoreB(NoB *);
+extern int pesquisaBinariaB(NoB *no, int chave, int* pQtdOperacoes);
+extern int localizaChave(ArvoreB *arvore, int chave, int* pQtdOperacoes);
+extern NoB *localizaNoB(ArvoreB *arvore, int chave, int* pQtdOperacoes);
+extern void adicionaChaveNo(NoB *no, NoB *novo, int chave, int* pQtdOperacoes);
+extern int transbordo(ArvoreB *arvore, NoB *no, int* pQtdOperacoes);
+extern NoB *divideNo(ArvoreB *arvore, NoB *no, int* pQtdOperacoes);
+extern void adicionaChaveRecursivo(ArvoreB *arvore, NoB *no, NoB *novo, int chave, int* pQtdOperacoes);
+extern void adicionaChaveB(ArvoreB *arvore, int chave, int* pQtdOperacoes);

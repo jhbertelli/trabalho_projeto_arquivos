@@ -22,13 +22,13 @@ typedef struct
 } ArvoreRN;
 
 extern NoRN *criarNoRN(ArvoreRN *, NoRN *, int);
-extern void balancearRN(ArvoreRN *, NoRN *);
-extern void rotacionarEsquerda(ArvoreRN *, NoRN *);
-extern void rotacionarDireita(ArvoreRN *, NoRN *);
+extern void balancearRN(ArvoreRN *, NoRN *, int*);
+extern void rotacionarEsquerda(ArvoreRN *, NoRN *, int*);
+extern void rotacionarDireita(ArvoreRN *, NoRN *, int*);
 
 extern ArvoreRN *criarRN();
 extern int vaziaRN(ArvoreRN *);
-extern NoRN *adicionarRN(ArvoreRN *, int);
+extern NoRN *adicionarRN(ArvoreRN *arvore, int valor, int* pQtdOperacoes);
 extern NoRN *localizarRN(ArvoreRN *arvore, int valor);
 
 extern void percorrerProfundidadePreOrder(ArvoreRN *arvore, NoRN *no, void (*callback)(int));

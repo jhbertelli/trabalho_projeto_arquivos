@@ -94,7 +94,7 @@ int main()
 
         for (int j = 0; j < MAX_CHAVES; j++)
             // TODO: contar operações
-            adicionarRN(arvoreRN, numeros[i][j]);
+            adicionarRN(arvoreRN, numeros[i][j], &qtdOperacoes);
         
         printf("Adição RN #%d - %d\n", i + 1, qtdOperacoes);
     }

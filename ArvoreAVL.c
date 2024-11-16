@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "ArvoreAVL.h"
 
-void incrementarOperacoes(int* qtd)
+void incrementarOperacoesAVL(int* qtd)
 {
     (*qtd)++;
 }
@@ -27,11 +27,12 @@ int vaziaAVL(ArvoreAVL *arvore)
 
 void adicionarAVL(ArvoreAVL *arvore, int valor, int* pQtdOperacoes)
 {
-    incrementarOperacoes(pQtdOperacoes);
     NoAVL *no = arvore->raiz;
 
     while (no != NULL)
     {
+        incrementarOperacoesAVL(pQtdOperacoes);
+
         if (valor > no->valor)
         {
             if (no->direita != NULL)
@@ -87,6 +88,8 @@ NoAVL *localizarAVL(NoAVL *no, int valor, int *pQtdOperacoes)
 {
     while (no != NULL)
     {
+        incrementarOperacoesAVL(pQtdOperacoes);
+        
         if (no->valor == valor)
         {
             return no;
@@ -110,9 +113,10 @@ void percorrerAVL(NoAVL *no, void (*callback)(int))
 
 void balanceamentoAVL(ArvoreAVL *arvore, NoAVL *no, int* pQtdOperacoes)
 {
-    incrementarOperacoes(pQtdOperacoes);
     while (no != NULL)
     {
+        incrementarOperacoesAVL(pQtdOperacoes);
+
         no->altura = max(alturaAVL(no->esquerda), alturaAVL(no->direita)) + 1;
         int fator = fb(no, pQtdOperacoes);
 
@@ -156,7 +160,7 @@ int alturaAVL(NoAVL *no)
 
 int fb(NoAVL *no, int* pQtdOperacoes)
 {
-    incrementarOperacoes(pQtdOperacoes);
+    incrementarOperacoesAVL(pQtdOperacoes);
 
     int esquerda = 0, direita = 0;
 
@@ -175,7 +179,7 @@ int fb(NoAVL *no, int* pQtdOperacoes)
 
 NoAVL *rse(ArvoreAVL *arvore, NoAVL *no, int* pQtdOperacoes)
 {
-    incrementarOperacoes(pQtdOperacoes);
+    incrementarOperacoesAVL(pQtdOperacoes);
     NoAVL *pai = no->pai;
     NoAVL *direita = no->direita;
 
@@ -214,7 +218,7 @@ NoAVL *rse(ArvoreAVL *arvore, NoAVL *no, int* pQtdOperacoes)
 
 NoAVL *rsd(ArvoreAVL *arvore, NoAVL *no, int* pQtdOperacoes)
 {
-    incrementarOperacoes(pQtdOperacoes);
+    incrementarOperacoesAVL(pQtdOperacoes);
     NoAVL *pai = no->pai;
     NoAVL *esquerda = no->esquerda;
 
@@ -265,12 +269,11 @@ NoAVL *rdd(ArvoreAVL *arvore, NoAVL *no, int* pQtdOperacoes)
 
 void removerAVL(ArvoreAVL *arvore, int valor, int* pQtdOperacoes)
 {
-    incrementarOperacoes(pQtdOperacoes);
     NoAVL *no = localizarAVL(arvore->raiz, valor, pQtdOperacoes);
     
     if (no == NULL) return;
 
-    incrementarOperacoes(pQtdOperacoes);
+    incrementarOperacoesAVL(pQtdOperacoes);
     NoAVL *pai = no->pai;
 
     // não possui filhos

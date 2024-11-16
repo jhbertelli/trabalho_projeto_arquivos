@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include "ArvoreB.h"
 
+void incrementarOperacoesB(int* qtd)
+{
+    (*qtd)++;
+}
+
 ArvoreB *criaArvoreB(int ordem)
 {
     ArvoreB *a = malloc(sizeof(ArvoreB));
@@ -10,8 +15,6 @@ ArvoreB *criaArvoreB(int ordem)
 
     return a;
 }
-
-int contador = 0;
 
 NoB *criaNoB(ArvoreB *arvore)
 {
@@ -45,13 +48,13 @@ void percorreArvoreB(NoB *no)
     }
 }
 
-int pesquisaBinariaB(NoB *no, int chave)
+int pesquisaBinariaB(NoB *no, int chave, int* pQtdOperacoes)
 {
     int inicio = 0, fim = no->total - 1, meio;
 
     while (inicio <= fim)
     {
-        contador++;
+        incrementarOperacoesB(pQtdOperacoes);
 
         meio = (inicio + fim) / 2;
 
@@ -71,13 +74,13 @@ int pesquisaBinariaB(NoB *no, int chave)
     return inicio; // não encontrou
 }
 
-int localizaChave(ArvoreB *arvore, int chave)
+int localizaChave(ArvoreB *arvore, int chave, int* pQtdOperacoes)
 {
     NoB *no = arvore->raiz;
 
     while (no != NULL)
     {
-        int i = pesquisaBinariaB(no, chave);
+        int i = pesquisaBinariaB(no, chave, pQtdOperacoes);
 
         if (i < no->total && no->chaves[i] == chave)
         {
@@ -92,15 +95,15 @@ int localizaChave(ArvoreB *arvore, int chave)
     return 0; // não encontrou
 }
 
-NoB *localizaNoB(ArvoreB *arvore, int chave)
+NoB *localizaNoB(ArvoreB *arvore, int chave, int* pQtdOperacoes)
 {
     NoB *no = arvore->raiz;
 
     while (no != NULL)
     {
-        contador++;
+        incrementarOperacoesB(pQtdOperacoes);
 
-        int i = pesquisaBinariaB(no, chave);
+        int i = pesquisaBinariaB(no, chave, pQtdOperacoes);
 
         if (no->filhos[i] == NULL)
             return no; // encontrou nó
@@ -111,11 +114,11 @@ NoB *localizaNoB(ArvoreB *arvore, int chave)
     return NULL; // não encontrou nenhum nó
 }
 
-void adicionaChaveNo(NoB *no, NoB *novo, int chave)
+void adicionaChaveNo(NoB *no, NoB *novo, int chave, int* pQtdOperacoes)
 {
-    int i = pesquisaBinariaB(no, chave);
+    int i = pesquisaBinariaB(no, chave, pQtdOperacoes);
 
-    contador++;
+    incrementarOperacoesB(pQtdOperacoes);
 
     for (int j = no->total - 1; j >= i; j--)
     {
@@ -129,20 +132,20 @@ void adicionaChaveNo(NoB *no, NoB *novo, int chave)
     no->total++;
 }
 
-int transbordo(ArvoreB *arvore, NoB *no)
+int transbordo(ArvoreB *arvore, NoB *no, int* pQtdOperacoes)
 {
-    contador++;
+    incrementarOperacoesB(pQtdOperacoes);
 
     return no->total > arvore->ordem * 2;
 }
 
-NoB *divideNo(ArvoreB *arvore, NoB *no)
+NoB *divideNo(ArvoreB *arvore, NoB *no, int* pQtdOperacoes)
 {
     int meio = no->total / 2;
     NoB *novo = criaNoB(arvore);
     novo->pai = no->pai;
 
-    contador++;
+    incrementarOperacoesB(pQtdOperacoes);
 
     for (int i = meio + 1; i < no->total; i++)
     {
@@ -161,37 +164,37 @@ NoB *divideNo(ArvoreB *arvore, NoB *no)
     return novo;
 }
 
-void adicionaChaveRecursivo(ArvoreB *arvore, NoB *no, NoB *novo, int chave)
+void adicionaChaveRecursivo(ArvoreB *arvore, NoB *no, NoB *novo, int chave, int* pQtdOperacoes)
 {
-    contador++;
+    incrementarOperacoesB(pQtdOperacoes);
 
-    adicionaChaveNo(no, novo, chave);
+    adicionaChaveNo(no, novo, chave, pQtdOperacoes);
 
-    if (transbordo(arvore, no))
+    if (transbordo(arvore, no, pQtdOperacoes))
     {
         int promovido = no->chaves[arvore->ordem];
-        NoB *novo = divideNo(arvore, no);
+        NoB *novo = divideNo(arvore, no, pQtdOperacoes);
 
         if (no->pai == NULL)
         {
-            contador++;
+            incrementarOperacoesB(pQtdOperacoes);
 
             NoB *pai = criaNoB(arvore);
             pai->filhos[0] = no;
-            adicionaChaveNo(pai, novo, promovido);
+            adicionaChaveNo(pai, novo, promovido, pQtdOperacoes);
 
             no->pai = pai;
             novo->pai = pai;
             arvore->raiz = pai;
         }
         else
-            adicionaChaveRecursivo(arvore, no->pai, novo, promovido);
+            adicionaChaveRecursivo(arvore, no->pai, novo, promovido, pQtdOperacoes);
     }
 }
 
-void adicionaChaveB(ArvoreB *arvore, int chave)
+void adicionaChaveB(ArvoreB *arvore, int chave, int* pQtdOperacoes)
 {
-    NoB *no = localizaNoB(arvore, chave);
+    NoB *no = localizaNoB(arvore, chave, pQtdOperacoes);
 
-    adicionaChaveRecursivo(arvore, no, NULL, chave);
+    adicionaChaveRecursivo(arvore, no, NULL, chave, pQtdOperacoes);
 }

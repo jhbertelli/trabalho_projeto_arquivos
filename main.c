@@ -52,7 +52,7 @@ int main()
 
         for (int j = 0; j < MAX_CHAVES; j++)
             // TODO: contar operações
-            adicionaChaveB(arvoreB1, numeros[i][j]);
+            adicionaChaveB(arvoreB1, numeros[i][j], &qtdOperacoes);
         
         printf("Adição B1 #%d - %d\n", i + 1, qtdOperacoes);
     }
@@ -66,7 +66,7 @@ int main()
 
         for (int j = 0; j < MAX_CHAVES; j++)
             // TODO: contar operações
-            adicionaChaveB(arvoreB5, numeros[i][j]);
+            adicionaChaveB(arvoreB5, numeros[i][j], &qtdOperacoes);
         
         printf("Adição B5 #%d - %d\n", i + 1, qtdOperacoes);
     }
@@ -80,7 +80,7 @@ int main()
 
         for (int j = 0; j < MAX_CHAVES; j++)
             // TODO: contar operações
-            adicionaChaveB(arvoreB10, numeros[i][j]);
+            adicionaChaveB(arvoreB10, numeros[i][j], &qtdOperacoes);
         
         printf("Adição B10 #%d - %d\n", i + 1, qtdOperacoes);
     }

@@ -13,7 +13,7 @@ int main()
     int numeros[NUM_CONJUNTOS][MAX_CHAVES];
 
     // semente para numeros aleatórios
-    srand(time(0));
+    srand(0);
 
     for (int i = 0; i < NUM_CONJUNTOS; i++)
         for (int j = 0; j < MAX_CHAVES; j++)

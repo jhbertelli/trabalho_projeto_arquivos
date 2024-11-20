@@ -223,6 +223,8 @@ void removerChaveRecursivoB(ArvoreB* arvore, NoB* no, int chave, int* pQtdOperac
 
             return;
         }
+
+        incrementarOperacoesB(pQtdOperacoes);
     
         NoB* noTemp = no->filhos[i + 1];
 

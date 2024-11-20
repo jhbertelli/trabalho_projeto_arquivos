@@ -19,9 +19,18 @@ int main()
         for (int j = 0; j < MAX_CHAVES; j++)
             numeros[i][j] = (rand() % 10000) + 1;  // gera um numero aleatorio entre 1 e 10000
 
+    // arquivo para enviar os resultados das quantidades de operações
+    FILE *fp = fopen("resultados.txt", "w");
+
+    if (fp == NULL)
+    {
+        printf("Erro ao abrir o arquivo de resultados!\n");
+        return 1;
+    }
+
     ArvoreAVL *arvoreAVL = criarAVL();
 
-    printf("----- Adição AVL -----\n");
+    fprintf(fp, "%s", "----- Adição AVL -----\n");
     // adição - AVL
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
@@ -30,13 +39,13 @@ int main()
         for (int j = 0; j < MAX_CHAVES; j++)
             adicionarAVL(arvoreAVL, numeros[i][j], &qtdOperacoes);
         
-        printf("%d\n", qtdOperacoes);
+        fprintf(fp, "%d\n", qtdOperacoes);
     }
 
     ArvoreB *arvoreB1 = criaArvoreB(1);
 
     // adição - B (ordem 1)
-    printf("----- Adição B1 -----\n");
+    fprintf(fp, "%s", "----- Adição B1 -----\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -44,13 +53,13 @@ int main()
         for (int j = 0; j < MAX_CHAVES; j++)
             adicionaChaveB(arvoreB1, numeros[i][j], &qtdOperacoes);
         
-        printf("%d\n", qtdOperacoes);
+        fprintf(fp, "%d\n", qtdOperacoes);
     }
 
     ArvoreB *arvoreB5 = criaArvoreB(5);
 
     // adição - B (ordem 5)
-    printf("----- Adição B5 -----\n");
+    fprintf(fp, "%s", "----- Adição B5 -----\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -58,13 +67,13 @@ int main()
         for (int j = 0; j < MAX_CHAVES; j++)
             adicionaChaveB(arvoreB5, numeros[i][j], &qtdOperacoes);
         
-        printf("%d\n", qtdOperacoes);
+        fprintf(fp, "%d\n", qtdOperacoes);
     }
 
     ArvoreB *arvoreB10 = criaArvoreB(10);
 
     // adição - B (ordem 10)
-    printf("----- Adição B10 -----\n");
+    fprintf(fp, "%s", "----- Adição B10 -----\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -72,13 +81,13 @@ int main()
         for (int j = 0; j < MAX_CHAVES; j++)
             adicionaChaveB(arvoreB10, numeros[i][j], &qtdOperacoes);
         
-        printf("%d\n", qtdOperacoes);
+        fprintf(fp, "%d\n", qtdOperacoes);
     }
 
     ArvoreRN *arvoreRN = criarRN();
 
     // adição - RN
-    printf("----- Adição RN -----\n");
+    fprintf(fp, "%s", "----- Adição RN -----\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -86,11 +95,11 @@ int main()
         for (int j = 0; j < MAX_CHAVES; j++)
             adicionarRN(arvoreRN, numeros[i][j], &qtdOperacoes);
         
-        printf("%d\n", qtdOperacoes);
+        fprintf(fp, "%d\n", qtdOperacoes);
     }
 
     // remoção - AVL
-    printf("----- Remoção AVL -----\n");
+    fprintf(fp, "%s", "----- Remoção AVL -----\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -98,8 +107,58 @@ int main()
         for (int j = 0; j < MAX_CHAVES; j++)
             removerAVL(arvoreAVL, numeros[i][j], &qtdOperacoes);
         
-        printf("%d\n", qtdOperacoes);
+        fprintf(fp, "%d\n", qtdOperacoes);
     }
 
-    // TODO: remoção das árvores: B e RN
+   // remoção - B (ordem 1)
+    fprintf(fp, "%s", "----- Remoção B1 -----\n");
+    for (int i = 0; i < NUM_CONJUNTOS; i++)
+    {
+        int qtdOperacoes = 0;
+
+        for (int j = 0; j < MAX_CHAVES; j++)
+            removerChaveB(arvoreB1, numeros[i][j], &qtdOperacoes);
+        
+        fprintf(fp, "%d\n", qtdOperacoes);
+    }
+
+    // remoção - B (ordem 5)
+    fprintf(fp, "%s", "----- Remoção B5 -----\n");
+    for (int i = 0; i < NUM_CONJUNTOS; i++)
+    {
+        int qtdOperacoes = 0;
+
+        for (int j = 0; j < MAX_CHAVES; j++)
+            removerChaveB(arvoreB5, numeros[i][j], &qtdOperacoes);
+        
+        fprintf(fp, "%d\n", qtdOperacoes);
+    }
+
+    // remoção - B (ordem 10)
+    fprintf(fp, "%s", "----- Remoção B10 -----\n");
+    for (int i = 0; i < NUM_CONJUNTOS; i++)
+    {
+        int qtdOperacoes = 0;
+
+        for (int j = 0; j < MAX_CHAVES; j++)
+            removerChaveB(arvoreB10, numeros[i][j], &qtdOperacoes);
+        
+        fprintf(fp, "%d\n", qtdOperacoes);
+    }
+
+    // remoção - RN
+    fprintf(fp, "%s", "----- Remoção RN -----\n");
+    for (int i = 0; i < NUM_CONJUNTOS; i++)
+    {
+        int qtdOperacoes = 0;
+
+        for (int j = 0; j < MAX_CHAVES; j++)
+            removerRN(arvoreRN, numeros[i][j], &qtdOperacoes);
+        
+        fprintf(fp, "%d\n", qtdOperacoes);
+    }
+
+    fclose(fp);
+
+    printf("Contagem de operações feita com sucesso.\nAbra o arquivo resultados.txt para visualizar os resultados.\n");
 }

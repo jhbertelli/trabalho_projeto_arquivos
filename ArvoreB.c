@@ -198,3 +198,46 @@ void adicionaChaveB(ArvoreB *arvore, int chave, int* pQtdOperacoes)
 
     adicionaChaveRecursivo(arvore, no, NULL, chave, pQtdOperacoes);
 }
+
+void removerChaveRecursivoB(ArvoreB* arvore, NoB* no, int chave, int* pQtdOperacoes)
+{
+    incrementarOperacoesB(pQtdOperacoes);
+
+    if (no == NULL) return;
+
+    int i = pesquisaBinariaB(no, chave, pQtdOperacoes);
+
+    if (no->chaves[i] == chave && i < no->total)
+    {
+        if (no->filhos[i] == NULL)
+        {
+            incrementarOperacoesB(pQtdOperacoes);
+
+            for (i; i < no->total - 1; i++)
+            {
+                no->chaves[i] = no->chaves[i + 1];
+                no->filhos[i + 1] = no->filhos[i + 2];
+            }
+
+            no->total--;
+
+            return;
+        }
+    
+        NoB* noTemp = no->filhos[i + 1];
+
+        while (noTemp->filhos[0] != NULL)                
+            noTemp = noTemp->filhos[0];
+
+        no->chaves[i] = noTemp->chaves[0];
+
+        removerChaveRecursivoB(arvore, noTemp, noTemp->chaves[0], pQtdOperacoes);
+    }
+    else
+        removerChaveRecursivoB(arvore, no->filhos[i], chave, pQtdOperacoes);
+}
+
+void removerChaveB(ArvoreB* arvore, int chave, int* pQtdOperacoes)
+{
+    removerChaveRecursivoB(arvore, arvore->raiz, chave, pQtdOperacoes);
+}

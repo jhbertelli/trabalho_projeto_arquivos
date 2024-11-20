@@ -313,7 +313,7 @@ void removerAVL(ArvoreAVL *arvore, int valor, int* pQtdOperacoes)
     // possui nó apenas na esquerda ou apenas na direita
     else
     {
-        NoAVL * filho = (no->esquerda != NULL) ? no->esquerda : no->direita;
+        NoAVL *filho = (no->esquerda != NULL) ? no->esquerda : no->direita;
 
         if (pai == NULL)
             arvore->raiz = filho;

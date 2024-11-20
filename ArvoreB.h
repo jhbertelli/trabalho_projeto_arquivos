@@ -23,3 +23,4 @@ extern int transbordo(ArvoreB *arvore, NoB *no, int* pQtdOperacoes);
 extern NoB *divideNo(ArvoreB *arvore, NoB *no, int* pQtdOperacoes);
 extern void adicionaChaveRecursivo(ArvoreB *arvore, NoB *no, NoB *novo, int chave, int* pQtdOperacoes);
 extern void adicionaChaveB(ArvoreB *arvore, int chave, int* pQtdOperacoes);
+extern void removerChaveB(ArvoreB* arvore, int chave, int* pQtdOperacoes);

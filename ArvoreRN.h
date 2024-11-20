@@ -29,8 +29,10 @@ extern void rotacionarDireita(ArvoreRN *, NoRN *, int*);
 extern ArvoreRN *criarRN();
 extern int vaziaRN(ArvoreRN *);
 extern NoRN *adicionarRN(ArvoreRN *arvore, int valor, int* pQtdOperacoes);
-extern NoRN *localizarRN(ArvoreRN *arvore, int valor);
+extern NoRN *localizarRN(ArvoreRN *arvore, int valor, int* pQtdOperacoes);
 
 extern void percorrerProfundidadePreOrder(ArvoreRN *arvore, NoRN *no, void (*callback)(int));
 extern void percorrerProfundidadePosOrder(ArvoreRN *arvore, NoRN *no, void(callback)(int));
 extern void percorrerProfundidadeInOrder(ArvoreRN *arvore, NoRN *no, void (*callback)(int));
+
+extern void removerRN(ArvoreRN* arvore, int valor, int* pQtdOperacoes);

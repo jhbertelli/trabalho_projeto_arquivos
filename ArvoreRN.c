@@ -89,7 +89,7 @@ NoRN *adicionarRN(ArvoreRN *arvore, int valor, int* pQtdOperacoes)
     }
 }
 
-NoRN *localizarRN(ArvoreRN *arvore, int valor)
+NoRN *localizarRN(ArvoreRN *arvore, int valor, int* pQtdOperacoes)
 {
     if (!vaziaRN(arvore))
     {
@@ -97,6 +97,8 @@ NoRN *localizarRN(ArvoreRN *arvore, int valor)
 
         while (no != arvore->nulo)
         {
+            incrementarOperacoesRN(pQtdOperacoes);
+
             if (no->valor == valor)
             {
                 return no;
@@ -266,4 +268,52 @@ void percorrerProfundidadeInOrder(ArvoreRN *arvore, NoRN *no, void (*callback)(i
         callback(no->valor);
         percorrerProfundidadeInOrder(arvore, no->direita, callback);
     }
+}
+
+void removerRN(ArvoreRN* arvore, int valor, int* pQtdOperacoes)
+{
+    NoRN* no = localizarRN(arvore, valor, pQtdOperacoes);
+
+    if (no == NULL || no == arvore->nulo) return;
+
+    incrementarOperacoesRN(pQtdOperacoes);
+    NoRN *pai = no->pai;
+
+    // não possui filhos
+    if (no->esquerda == arvore->nulo && no->direita == arvore->nulo)
+    {
+        if (pai == arvore->nulo)
+            arvore->raiz = arvore->nulo;
+        else if (no == pai->esquerda)
+            pai->esquerda = arvore->nulo;
+        else
+            pai->direita = arvore->nulo;
+    }
+    // possui nó na esquerda e direita
+    else if (no->esquerda != arvore->nulo && no->direita != arvore->nulo)
+    {
+        NoRN *folha = no->direita;
+
+        while (folha->esquerda != arvore->nulo)
+            folha = folha->esquerda;
+
+        no->valor = folha->valor;
+        no = folha;
+    }
+    // possui nó apenas na esquerda ou apenas na direita
+    else
+    {
+        NoRN *filho = (no->esquerda != arvore->nulo) ? no->esquerda : no->direita;
+
+        if (pai == arvore->nulo)
+            arvore->raiz = filho;
+        else if (no == pai->esquerda)
+            pai->esquerda = filho;
+        else
+            pai->direita = filho;
+
+        filho->pai = pai;
+    }
+
+    balancearRN(arvore, arvore->raiz, pQtdOperacoes);
 }

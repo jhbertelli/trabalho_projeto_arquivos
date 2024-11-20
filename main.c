@@ -30,7 +30,7 @@ int main()
 
     ArvoreAVL *arvoreAVL = criarAVL();
 
-    fprintf(fp, "%s", "----- Adição AVL -----\n");
+    fprintf(fp, "%s", "Adição AVL\n");
     // adição - AVL
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
@@ -45,7 +45,7 @@ int main()
     ArvoreB *arvoreB1 = criaArvoreB(1);
 
     // adição - B (ordem 1)
-    fprintf(fp, "%s", "----- Adição B1 -----\n");
+    fprintf(fp, "%s", "Adição B1\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -59,7 +59,7 @@ int main()
     ArvoreB *arvoreB5 = criaArvoreB(5);
 
     // adição - B (ordem 5)
-    fprintf(fp, "%s", "----- Adição B5 -----\n");
+    fprintf(fp, "%s", "Adição B5\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -73,7 +73,7 @@ int main()
     ArvoreB *arvoreB10 = criaArvoreB(10);
 
     // adição - B (ordem 10)
-    fprintf(fp, "%s", "----- Adição B10 -----\n");
+    fprintf(fp, "%s", "Adição B10\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -87,7 +87,7 @@ int main()
     ArvoreRN *arvoreRN = criarRN();
 
     // adição - RN
-    fprintf(fp, "%s", "----- Adição RN -----\n");
+    fprintf(fp, "%s", "Adição RN\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -99,7 +99,7 @@ int main()
     }
 
     // remoção - AVL
-    fprintf(fp, "%s", "----- Remoção AVL -----\n");
+    fprintf(fp, "%s", "Remoção AVL\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -111,7 +111,7 @@ int main()
     }
 
    // remoção - B (ordem 1)
-    fprintf(fp, "%s", "----- Remoção B1 -----\n");
+    fprintf(fp, "%s", "Remoção B1\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -123,7 +123,7 @@ int main()
     }
 
     // remoção - B (ordem 5)
-    fprintf(fp, "%s", "----- Remoção B5 -----\n");
+    fprintf(fp, "%s", "Remoção B5\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -135,7 +135,7 @@ int main()
     }
 
     // remoção - B (ordem 10)
-    fprintf(fp, "%s", "----- Remoção B10 -----\n");
+    fprintf(fp, "%s", "Remoção B10\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;
@@ -147,7 +147,7 @@ int main()
     }
 
     // remoção - RN
-    fprintf(fp, "%s", "----- Remoção RN -----\n");
+    fprintf(fp, "%s", "Remoção RN\n");
     for (int i = 0; i < NUM_CONJUNTOS; i++)
     {
         int qtdOperacoes = 0;

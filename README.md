@@ -1,5 +1,7 @@
 # Trabalho final - Projeto de Arquivos
 
+Nome dos alunos: Gabriel B. de O. da Silva, João H. Bertelli, José A. Fernandes, Nathan C. da Silva
+
 Para executar o projeto, rode o seguinte comando em seu respectivo sistema operacional:
 
 Linux:
